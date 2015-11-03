@@ -7,6 +7,12 @@ function functionFromString(funcOrString) {
     return eval('(' + funcOrString.toString() + ')');
 }
 
+function initObjectScripts(object) {
+    if (typeof object.__scripts__ === 'undefined') {
+        object.__scripts__ = {};
+    }
+}
+
 export function addScript(object, funcOrString, opts) {
     if (object instanceof jQuery) {
         jQuery.each(object, function(k, v) {
@@ -16,9 +22,7 @@ export function addScript(object, funcOrString, opts) {
     }
 
     opts = opts || {};
-    if (typeof object.__scripts__ === 'undefined') {
-        object.__scripts__ = {};
-    }
+    initObjectScripts(object);
 
     var func = functionFromString(funcOrString);
     if (typeof func !== 'function') {
@@ -51,4 +55,13 @@ export function callScript(object, name) {
         return object[name].apply(object, optionalArgs);
     }
     throw 'unknown script "' + name +'"!'
+}
+
+export function loadScript(object, name) {
+    initObjectScripts(object);
+
+    if(object.__scripts__[name])
+        return object.__scripts__[name];
+
+    return '';
 }
