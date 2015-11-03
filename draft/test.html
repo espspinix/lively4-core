@@ -68,8 +68,9 @@
 <br>
 <input type="text" id="addScriptId" name="addScriptId" value="" />
 <input type="text" id="addScriptName" name="addScriptName" value="" />
-<button onclick="scriptManager.loadScript($($('#addScriptId').val()), $('#addScriptScript').val());">Load Script</button>
-<button onclick="scriptManager.addScript($($('#addScriptId').val()), $('#addScriptScript').val());">Save Script</button>
+<button onclick="fileEditor.loadScript($($('#addScriptId').val()), $('#addScriptScript').val());">Load Script</button>
+<button onclick="scriptManager.addScript($($('#addScriptId').val()), fileEditor.getContents(), {name: $('#addScriptName').val()});">Save Script</button>
+<button onclick="scriptManager.callScript($($('#addScriptId').val()), $('#addScriptName').val());">Call Script</button>
 
 <!-- BEGIN ACE -->
 <!-- We also have to load ace "locally", because loading it remotely ends in a race condition -->

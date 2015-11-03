@@ -25,6 +25,16 @@ function getURL(){
 	return new URL(baseurl + filename)
 }
 
+export function loadScript(object, name) {
+	var script = scriptManager.loadScript(object, name);
+
+	currentEditor().setValue(script);
+}
+
+export function getContents() {
+	return currentEditor().getValue();
+}
+
 export function loadFile(){
 	var url = getURL()
 	console.log("load " + url)
